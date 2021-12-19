@@ -3,11 +3,10 @@
 namespace Tests;
 
 use HypnoTox\Pack\Pack;
-use PHPUnit\Framework\TestCase;
 
-class PackTest extends TestCase
+class PackTest extends BaseTest
 {
-    public function testConstruct(): void
+    public function testCanConstructAndGetValues(): void
     {
         $pack1 = new Pack();
         $pack2 = new Pack([]);
@@ -18,9 +17,5 @@ class PackTest extends TestCase
         $this->assertSame(\count($pack2->getValues()), 0);
         $this->assertSame(\count($pack3->getValues()), 3);
         $this->assertSame(\count($pack4->getValues()), 3);
-    }
-
-    public function testGetValues(): void
-    {
     }
 }

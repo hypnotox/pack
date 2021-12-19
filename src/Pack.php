@@ -6,6 +6,8 @@ use JetBrains\PhpStorm\Pure;
 
 /**
  * @template T
+ *
+ * @property T[] $values
  */
 class Pack implements PackInterface
 {
@@ -13,13 +15,11 @@ class Pack implements PackInterface
      * @param T[] $values
      */
     public function __construct(
-        private array $values = [],
+        private readonly array $values = [],
     ) {
     }
 
-    /**
-     * @return T[]
-     */
+    #[Pure]
     public function getValues(): array
     {
         return $this->values;

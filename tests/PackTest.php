@@ -17,9 +17,7 @@ class PackTest extends TestCase
         $this->assertSame(\count($pack1->getValues()), 0);
         $this->assertSame(\count($pack2->getValues()), 0);
         $this->assertSame(\count($pack3->getValues()), 3);
-        $this->assertSame($pack3[1], 2);
         $this->assertSame(\count($pack4->getValues()), 3);
-        $this->assertSame($pack4[1], '2');
     }
 
     public function testGetValues(): void

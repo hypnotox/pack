@@ -31,5 +31,8 @@ return (new PhpCsFixer\Config())
         'ordered_imports'        => [
             'sort_algorithm' => 'alpha',
         ],
+        'phpdoc_align'           => true,
+        'phpdoc_to_comment'      => false,
+        'declare_strict_types'   => true,
     ])
     ->setFinder($finder);

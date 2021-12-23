@@ -15,11 +15,14 @@ use Traversable;
  *
  * @property array<TKey, TValue> $values
  * @psalm-immutable
+ * @psalm-consistent-constructor
+ * @psalm-consistent-templates
  */
 class ArrayCollection implements CollectionInterface
 {
     /**
      * @param array<TKey, TValue> $values
+     * @psalm-pure
      */
     public function __construct(
         private readonly array $values = [],
@@ -28,13 +31,63 @@ class ArrayCollection implements CollectionInterface
 
     /**
      * {@inheritDoc}
-     *
-     * @psalm-mutation-free
      */
     #[Pure]
     public function getValues(): array
     {
         return $this->values;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param array-key $key
+     * @psalm-suppress MoreSpecificImplementedParamType
+     */
+    public function exists(mixed $key): bool
+    {
+        return \array_key_exists($key, $this->values);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param array-key $key
+     * @psalm-suppress MoreSpecificImplementedParamType
+     */
+    public function get(mixed $key): mixed
+    {
+        return $this->values[$key];
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param array-key $key
+     * @param TValue    $value
+     * @psalm-suppress MoreSpecificImplementedParamType
+     */
+    #[Pure]
+     public function set(mixed $key, mixed $value): static
+     {
+         $values = $this->values;
+         $values[$key] = $value;
+
+         return new static($values);
+     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param array-key $key
+     * @psalm-suppress MoreSpecificImplementedParamType
+     */
+    public function unset(mixed $key): static
+    {
+        $values = $this->values;
+        unset($values[$key]);
+
+        return new static($values);
     }
 
     /*
@@ -46,7 +99,6 @@ class ArrayCollection implements CollectionInterface
      *
      * @psalm-suppress ImplementedReturnTypeMismatch
      * @psalm-return ArrayIterator<array-key, TValue>
-     * @psalm-mutation-free
      */
     public function getIterator(): Traversable
     {
@@ -62,9 +114,10 @@ class ArrayCollection implements CollectionInterface
      *
      * @param array-key $offset
      */
+    #[Pure]
     public function offsetExists(mixed $offset): bool
     {
-        return \array_key_exists($offset, $this->values);
+        return $this->exists($offset);
     }
 
     /**
@@ -74,7 +127,7 @@ class ArrayCollection implements CollectionInterface
      */
     public function offsetGet(mixed $offset): mixed
     {
-        return $this->values[$offset];
+        return $this->get($offset);
     }
 
     /**
@@ -87,7 +140,7 @@ class ArrayCollection implements CollectionInterface
     {
         throw new RuntimeException(
             sprintf(
-                'Attempt to mutate immutable %s object.',
+                'Cannot mutate immutable object of type %s.',
                 __CLASS__,
             ),
         );
@@ -102,7 +155,7 @@ class ArrayCollection implements CollectionInterface
     {
         throw new RuntimeException(
             sprintf(
-                'Attempt to mutate immutable %s object.',
+                'Cannot mutate immutable object of type %s.',
                 __CLASS__,
             ),
         );

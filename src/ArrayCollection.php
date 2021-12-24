@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace HypnoTox\Pack;
 
 use ArrayIterator;
-use JetBrains\PhpStorm\Pure;
 use RuntimeException;
 use Traversable;
 
@@ -32,7 +31,6 @@ class ArrayCollection implements CollectionInterface
     /**
      * {@inheritDoc}
      */
-    #[Pure]
     public function getValues(): array
     {
         return $this->values;
@@ -67,14 +65,13 @@ class ArrayCollection implements CollectionInterface
      * @param TValue    $value
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    #[Pure]
-     public function set(mixed $key, mixed $value): static
-     {
-         $values = $this->values;
-         $values[$key] = $value;
+    public function set(mixed $key, mixed $value): static
+    {
+        $values = $this->values;
+        $values[$key] = $value;
 
-         return new static($values);
-     }
+        return new static($values);
+    }
 
     /**
      * {@inheritDoc}
@@ -114,7 +111,6 @@ class ArrayCollection implements CollectionInterface
      *
      * @param array-key $offset
      */
-    #[Pure]
     public function offsetExists(mixed $offset): bool
     {
         return $this->exists($offset);

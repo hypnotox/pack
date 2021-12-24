@@ -6,7 +6,6 @@ namespace HypnoTox\Pack;
 
 use ArrayAccess;
 use IteratorAggregate;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * @template TKey
@@ -23,7 +22,6 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
     /**
      * @return iterable<TKey, TValue>
      */
-    #[Pure]
     public function getValues(): iterable;
 
     /**

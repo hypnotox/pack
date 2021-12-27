@@ -50,7 +50,8 @@ jobs:
             -   name: Run code style fixer
                 run: composer fix
 
-            -   uses: stefanzweifel/git-auto-commit-action@v4
+            -   name: Commit and push fixed files
+                uses: stefanzweifel/git-auto-commit-action@v4
                 with:
                     commit_message: "chore: run php-cs-fixer"
 

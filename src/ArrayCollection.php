@@ -28,6 +28,10 @@ class ArrayCollection implements CollectionInterface
     ) {
     }
 
+    /*
+     * Getters
+     */
+
     /**
      * {@inheritDoc}
      */
@@ -35,6 +39,10 @@ class ArrayCollection implements CollectionInterface
     {
         return $this->values;
     }
+
+    /*
+     * Base methods
+     */
 
     /**
      * {@inheritDoc}
@@ -83,6 +91,26 @@ class ArrayCollection implements CollectionInterface
     {
         $values = $this->values;
         unset($values[$key]);
+
+        return new static($values);
+    }
+
+    /*
+     * Collection "modification" methods
+     */
+
+    public function splice(int $offset, ?int $length = null): static
+    {
+        $values = $this->values;
+        array_splice($values, $offset, $length ?? \count($values));
+
+        return new static($values);
+    }
+
+    public function slice(int $offset, ?int $length, bool $preserveKeys = false): static
+    {
+        $values = $this->values;
+        $values = \array_slice($values, $offset, $length ?? \count($values), $preserveKeys);
 
         return new static($values);
     }

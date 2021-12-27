@@ -19,10 +19,18 @@ use IteratorAggregate;
  */
 interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
 {
+    /*
+     * Getters
+     */
+
     /**
      * @return iterable<TKey, TValue>
      */
     public function getValues(): iterable;
+
+    /*
+     * Base methods
+     */
 
     /**
      * @param TKey $key
@@ -48,4 +56,12 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
      * @param TKey $key
      */
     public function unset(mixed $key): static;
+
+    /*
+     * Collection "modification" methods
+     */
+
+    public function splice(int $offset, ?int $length = null): static;
+
+    public function slice(int $offset, ?int $length, bool $preserveKeys = false): static;
 }

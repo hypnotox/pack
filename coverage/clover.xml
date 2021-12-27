@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1640570442">
+  <project timestamp="1640570442">
+    <file name="/home/runner/work/pack/pack/src/ArrayCollection.php">
+      <class name="HypnoTox\Pack\ArrayCollection" namespace="global">
+        <metrics complexity="14" methods="14" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="23" elements="43" coveredelements="35"/>
+      </class>
+      <line num="26" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="29" type="stmt" count="7"/>
+      <line num="38" type="method" name="getValues" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="40" type="stmt" count="1"/>
+      <line num="53" type="method" name="exists" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="55" type="stmt" count="2"/>
+      <line num="64" type="method" name="get" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="66" type="stmt" count="2"/>
+      <line num="76" type="method" name="set" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="78" type="stmt" count="1"/>
+      <line num="79" type="stmt" count="1"/>
+      <line num="81" type="stmt" count="1"/>
+      <line num="90" type="method" name="unset" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="92" type="stmt" count="1"/>
+      <line num="93" type="stmt" count="1"/>
+      <line num="95" type="stmt" count="1"/>
+      <line num="102" type="method" name="splice" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="104" type="stmt" count="0"/>
+      <line num="105" type="stmt" count="0"/>
+      <line num="107" type="stmt" count="0"/>
+      <line num="110" type="method" name="slice" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="112" type="stmt" count="0"/>
+      <line num="113" type="stmt" count="0"/>
+      <line num="115" type="stmt" count="0"/>
+      <line num="128" type="method" name="getIterator" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="130" type="stmt" count="1"/>
+      <line num="142" type="method" name="offsetExists" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="144" type="stmt" count="1"/>
+      <line num="152" type="method" name="offsetGet" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="154" type="stmt" count="1"/>
+      <line num="163" type="method" name="offsetSet" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="165" type="stmt" count="1"/>
+      <line num="166" type="stmt" count="1"/>
+      <line num="167" type="stmt" count="1"/>
+      <line num="168" type="stmt" count="1"/>
+      <line num="178" type="method" name="offsetUnset" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="180" type="stmt" count="1"/>
+      <line num="181" type="stmt" count="1"/>
+      <line num="182" type="stmt" count="1"/>
+      <line num="183" type="stmt" count="1"/>
+      <line num="192" type="method" name="count" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="194" type="stmt" count="2"/>
+      <metrics loc="196" ncloc="110" classes="1" methods="14" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="23" elements="43" coveredelements="35"/>
+    </file>
+    <file name="/home/runner/work/pack/pack/src/CollectionInterface.php">
+      <metrics loc="67" ncloc="28" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <metrics files="2" loc="263" ncloc="138" classes="1" methods="14" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="23" elements="43" coveredelements="35"/>
+  </project>
+</coverage>

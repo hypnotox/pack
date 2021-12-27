@@ -67,6 +67,8 @@ jobs:
                 if: ${{ matrix.operating-system == 'ubuntu-latest' }}
                 uses: timkrase/phpunit-coverage-badge@v1.2.0
                 with:
+                    report: "coverage/clover.xml"
+                    coverage_badge_path: "coverage/badge.svg"
                     push_badge: true
                     repo_token: ${{ secrets.GITHUB_TOKEN }}
                     commit_message: "chore: update code coverage badge"

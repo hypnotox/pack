@@ -52,6 +52,7 @@ jobs:
                 run: composer fix
 
             -   name: Commit and push fixed files
+                if: ${{ matrix.operating-system == 'ubuntu-latest' }}
                 uses: stefanzweifel/git-auto-commit-action@v4
                 with:
                     commit_message: "chore: run php-cs-fixer"

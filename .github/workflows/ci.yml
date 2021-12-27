@@ -63,6 +63,12 @@ jobs:
             -   name: Run tests
                 run: composer unit
 
+            -   name: Commit and push code coverage
+                if: ${{ matrix.operating-system == 'ubuntu-latest' }}
+                uses: stefanzweifel/git-auto-commit-action@v4
+                with:
+                    commit_message: "chore: update code coverage"
+
             -   name: Generate code coverage badge
                 if: ${{ matrix.operating-system == 'ubuntu-latest' }}
                 uses: timkrase/phpunit-coverage-badge@v1.2.0

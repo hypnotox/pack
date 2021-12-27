@@ -18,8 +18,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-#                operating-system: [ ubuntu-latest, windows-latest, macos-latest ]
-                operating-system: [ ubuntu-latest ]
+                operating-system: [ ubuntu-latest, windows-latest, macos-latest ]
                 php-versions: [ '8.1' ]
         steps:
             -   name: Checkout
@@ -63,7 +62,8 @@ jobs:
             -   name: Run tests
                 run: composer unit
 
-            -   name: Run tests
+            -   name: Generate coverage badge
+                if: ${{ matrix.operating-system == 'ubuntu-latest' }}
                 run: composer coverage-badge
 
             -   name: Commit and push fixed files

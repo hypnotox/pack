@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1640570442">
-  <project timestamp="1640570442">
+<coverage generated="1640571505">
+  <project timestamp="1640571505">
     <file name="/home/runner/work/pack/pack/src/ArrayCollection.php">
       <class name="HypnoTox\Pack\ArrayCollection" namespace="global">
-        <metrics complexity="14" methods="14" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="23" elements="43" coveredelements="35"/>
+        <metrics complexity="15" methods="14" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="31" elements="45" coveredelements="45"/>
       </class>
-      <line num="26" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="7"/>
-      <line num="29" type="stmt" count="7"/>
-      <line num="38" type="method" name="getValues" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="40" type="stmt" count="1"/>
+      <line num="26" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="8"/>
+      <line num="29" type="stmt" count="8"/>
+      <line num="38" type="method" name="getValues" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="40" type="stmt" count="2"/>
       <line num="53" type="method" name="exists" visibility="public" complexity="1" crap="1" count="2"/>
       <line num="55" type="stmt" count="2"/>
       <line num="64" type="method" name="get" visibility="public" complexity="1" crap="1" count="2"/>
@@ -21,37 +21,39 @@
       <line num="92" type="stmt" count="1"/>
       <line num="93" type="stmt" count="1"/>
       <line num="95" type="stmt" count="1"/>
-      <line num="102" type="method" name="splice" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="104" type="stmt" count="0"/>
-      <line num="105" type="stmt" count="0"/>
-      <line num="107" type="stmt" count="0"/>
-      <line num="110" type="method" name="slice" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="112" type="stmt" count="0"/>
-      <line num="113" type="stmt" count="0"/>
-      <line num="115" type="stmt" count="0"/>
-      <line num="128" type="method" name="getIterator" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="130" type="stmt" count="1"/>
-      <line num="142" type="method" name="offsetExists" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="144" type="stmt" count="1"/>
-      <line num="152" type="method" name="offsetGet" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="154" type="stmt" count="1"/>
-      <line num="163" type="method" name="offsetSet" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="165" type="stmt" count="1"/>
-      <line num="166" type="stmt" count="1"/>
-      <line num="167" type="stmt" count="1"/>
-      <line num="168" type="stmt" count="1"/>
-      <line num="178" type="method" name="offsetUnset" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="180" type="stmt" count="1"/>
-      <line num="181" type="stmt" count="1"/>
-      <line num="182" type="stmt" count="1"/>
-      <line num="183" type="stmt" count="1"/>
-      <line num="192" type="method" name="count" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="194" type="stmt" count="2"/>
-      <metrics loc="196" ncloc="110" classes="1" methods="14" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="23" elements="43" coveredelements="35"/>
+      <line num="102" type="method" name="splice" visibility="public" complexity="2" crap="2" count="1"/>
+      <line num="104" type="stmt" count="1"/>
+      <line num="106" type="stmt" count="1"/>
+      <line num="107" type="stmt" count="1"/>
+      <line num="109" type="stmt" count="1"/>
+      <line num="112" type="stmt" count="1"/>
+      <line num="115" type="method" name="slice" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="117" type="stmt" count="1"/>
+      <line num="118" type="stmt" count="1"/>
+      <line num="120" type="stmt" count="1"/>
+      <line num="133" type="method" name="getIterator" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="135" type="stmt" count="1"/>
+      <line num="147" type="method" name="offsetExists" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="149" type="stmt" count="1"/>
+      <line num="157" type="method" name="offsetGet" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="159" type="stmt" count="1"/>
+      <line num="168" type="method" name="offsetSet" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="170" type="stmt" count="1"/>
+      <line num="171" type="stmt" count="1"/>
+      <line num="172" type="stmt" count="1"/>
+      <line num="173" type="stmt" count="1"/>
+      <line num="183" type="method" name="offsetUnset" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="185" type="stmt" count="1"/>
+      <line num="186" type="stmt" count="1"/>
+      <line num="187" type="stmt" count="1"/>
+      <line num="188" type="stmt" count="1"/>
+      <line num="197" type="method" name="count" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="199" type="stmt" count="2"/>
+      <metrics loc="201" ncloc="115" classes="1" methods="14" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="31" elements="45" coveredelements="45"/>
     </file>
     <file name="/home/runner/work/pack/pack/src/CollectionInterface.php">
       <metrics loc="67" ncloc="28" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="2" loc="263" ncloc="138" classes="1" methods="14" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="23" elements="43" coveredelements="35"/>
+    <metrics files="2" loc="268" ncloc="143" classes="1" methods="14" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="31" elements="45" coveredelements="45"/>
   </project>
 </coverage>

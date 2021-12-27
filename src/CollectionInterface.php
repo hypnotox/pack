@@ -61,7 +61,7 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
      * Collection "modification" methods
      */
 
-    public function splice(int $offset, ?int $length = null): static;
+    public function splice(int $offset, ?int $length = null, array $replacement = null): static;
 
     public function slice(int $offset, ?int $length, bool $preserveKeys = false): static;
 }

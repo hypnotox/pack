@@ -99,10 +99,15 @@ class ArrayCollection implements CollectionInterface
      * Collection "modification" methods
      */
 
-    public function splice(int $offset, ?int $length = null): static
+    public function splice(int $offset, ?int $length = null, array $replacement = null): static
     {
         $values = $this->values;
-        array_splice($values, $offset, $length ?? \count($values));
+
+        if ($replacement) {
+            array_splice($values, $offset, $length ?? \count($values), $replacement);
+        } else {
+            array_splice($values, $offset, $length ?? \count($values));
+        }
 
         return new static($values);
     }

@@ -61,6 +61,16 @@ class ArrayCollectionTest extends BaseTest
      * Collection "modification" methods
      */
 
+    public function testCanUseModificationMethods(): void
+    {
+        $collection = $this->getTestCollection();
+
+        $this->assertEquals([1 => 2, 2 => 3], $collection->slice(1, null, true)->getValues());
+        $this->assertEquals([1, 2], $collection->slice(0, 2)->getValues());
+        $this->assertEquals([2, 3], $collection->splice(0, 1)->getValues());
+        $this->assertEquals([1, 2, 2], $collection->splice(2, 1, [2])->getValues());
+    }
+
     /*
      * IteratorAggregate
      */

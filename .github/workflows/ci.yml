@@ -63,12 +63,11 @@ jobs:
             -   name: Run tests
                 run: composer unit
 
-            -   name: Generate code coverage badge and commit coverage files
+            -   name: Run tests
+                run: composer coverage-badge
+
+            -   name: Commit and push fixed files
                 if: ${{ matrix.operating-system == 'ubuntu-latest' }}
-                uses: timkrase/phpunit-coverage-badge@v1.2.0
+                uses: stefanzweifel/git-auto-commit-action@v4
                 with:
-                    report: "coverage/clover.xml"
-                    coverage_badge_path: "coverage/badge.svg"
-                    push_badge: true
-                    repo_token: ${{ secrets.GITHUB_TOKEN }}
                     commit_message: "chore: update code coverage files"

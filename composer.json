@@ -30,9 +30,10 @@
 		"php": ">=8.1"
 	},
 	"require-dev": {
+		"friendsofphp/php-cs-fixer": "^3.4",
+		"jaschilz/php-coverage-badger": "^2.0",
 		"phpunit/phpunit": "^9.5",
-		"vimeo/psalm": "^4.15",
-		"friendsofphp/php-cs-fixer": "^3.4"
+		"vimeo/psalm": "^4.15"
 	},
 	"scripts": {
 		"test": [
@@ -41,6 +42,7 @@
 			"@unit"
 		],
 		"unit": "vendor/bin/phpunit",
+		"coverage-badge": "vendor/bin/php-coverage-badger coverage/clover.xml coverage/badge.svg",
 		"fix": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
 		"fix-verbose": "@fix -vvv",
 		"lint": "vendor/bin/psalm --output-format=phpstorm --no-cache",

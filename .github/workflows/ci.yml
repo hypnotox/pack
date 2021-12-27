@@ -63,13 +63,7 @@ jobs:
             -   name: Run tests
                 run: composer unit
 
-            -   name: Commit and push code coverage
-                if: ${{ matrix.operating-system == 'ubuntu-latest' }}
-                uses: stefanzweifel/git-auto-commit-action@v4
-                with:
-                    commit_message: "chore: update code coverage"
-
-            -   name: Generate code coverage badge
+            -   name: Generate code coverage badge and commit coverage files
                 if: ${{ matrix.operating-system == 'ubuntu-latest' }}
                 uses: timkrase/phpunit-coverage-badge@v1.2.0
                 with:
@@ -77,4 +71,4 @@ jobs:
                     coverage_badge_path: "coverage/badge.svg"
                     push_badge: true
                     repo_token: ${{ secrets.GITHUB_TOKEN }}
-                    commit_message: "chore: update code coverage badge"
+                    commit_message: "chore: update code coverage files"

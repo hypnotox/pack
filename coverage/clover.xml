@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1640573850">
-  <project timestamp="1640573850">
+<coverage generated="1640574703">
+  <project timestamp="1640574703">
     <file name="/home/runner/work/pack/pack/src/ArrayCollection.php">
       <class name="HypnoTox\Pack\ArrayCollection" namespace="global">
         <metrics complexity="15" methods="14" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="31" elements="45" coveredelements="45"/>

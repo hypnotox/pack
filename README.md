@@ -2,8 +2,8 @@
 
 ![CI Status](https://github.com/hypnotox/pack/actions/workflows/ci.yml/badge.svg)
 ![Code Coverage](https://raw.githubusercontent.com/hypnotox/pack/main/coverage/badge.svg)
-![GitHub issues](https://badgen.net/github/issues/hypnotox/pack)
-![Packagist PHP Version Support](https://badgen.net/packagist/v/hypnotox/pack)
+![Packagist Version](https://badgen.net/packagist/v/hypnotox/pack)
+![Packagist PHP Version Support](https://badgen.net/packagist/php/hypnotox/pack)
 ![GitHub](https://badgen.net/packagist/license/hypnotox/pack)
 
 A collection library offering immutable collections.

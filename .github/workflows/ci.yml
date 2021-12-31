@@ -18,7 +18,8 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                operating-system: [ ubuntu-latest, windows-latest, macos-latest ]
+                # operating-system: [ ubuntu-latest, windows-latest, macos-latest ]
+                operating-system: [ ubuntu-latest ]
                 php-versions: [ '8.1' ]
         steps:
             -   name: Checkout
@@ -63,4 +64,6 @@ jobs:
                 run: composer unit-coverage
 
             -   name: Upload code coverage
+                env:
+                    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
                 run: bash <(curl -s https://codecov.io/bash)

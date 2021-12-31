@@ -64,18 +64,7 @@ jobs:
                 run: composer lint
 
             -   name: Run tests
-                run: composer unit
+                run: composer unit-coverage
 
-            -   name: Checkout
-                if: ${{ matrix.operating-system == 'ubuntu-latest' }}
-                uses: actions/checkout@v2
-
-            -   name: Generate coverage badge
-                if: ${{ matrix.operating-system == 'ubuntu-latest' }}
-                run: composer coverage-badge
-
-            -   name: Commit and push fixed files
-                if: ${{ matrix.operating-system == 'ubuntu-latest' }}
-                uses: stefanzweifel/git-auto-commit-action@v4
-                with:
-                    commit_message: "chore: update code coverage files"
+            -   name: Upload code coverage
+                run: bash <(curl -s https://codecov.io/bash)

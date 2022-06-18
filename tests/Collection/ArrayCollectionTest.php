@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\Collection;
 
 use HypnoTox\Pack\ArrayCollection;
+use HypnoTox\Pack\ImmutableException;
 use JetBrains\PhpStorm\Pure;
-use RuntimeException;
+use Tests\BaseTest;
 
 class ArrayCollectionTest extends BaseTest
 {
@@ -113,7 +114,7 @@ class ArrayCollectionTest extends BaseTest
     {
         $collection = $this->getTestCollection();
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ImmutableException::class);
         $collection[0] = 10;
     }
 
@@ -121,7 +122,7 @@ class ArrayCollectionTest extends BaseTest
     {
         $collection = $this->getTestCollection();
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ImmutableException::class);
         unset($collection[0]);
     }
 

@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace HypnoTox\Pack;
 
 use ArrayIterator;
-use RuntimeException;
 use Traversable;
 
 /**
  * @template TKey as array-key
  * @template TValue
  *
- * @property array<TKey, TValue> $values
  * @psalm-immutable
  * @psalm-consistent-constructor
  * @psalm-consistent-templates
  */
 class ArrayCollection implements CollectionInterface
 {
+    // region Properties & Constructor
+
     /**
      * @param array<TKey, TValue> $values
      * @psalm-pure
@@ -28,9 +28,8 @@ class ArrayCollection implements CollectionInterface
     ) {
     }
 
-    /*
-     * Getters
-     */
+    // endregion
+    // region Getters
 
     /**
      * {@inheritDoc}
@@ -40,9 +39,8 @@ class ArrayCollection implements CollectionInterface
         return $this->values;
     }
 
-    /*
-     * Base methods
-     */
+    // endregion
+    // region Base methods
 
     /**
      * {@inheritDoc}
@@ -95,9 +93,8 @@ class ArrayCollection implements CollectionInterface
         return new static($values);
     }
 
-    /*
-     * Collection "modification" methods
-     */
+    // endregion
+    // region Collection "modification" methods
 
     public function splice(int $offset, ?int $length = null, array $replacement = null): static
     {
@@ -120,9 +117,8 @@ class ArrayCollection implements CollectionInterface
         return new static($values);
     }
 
-    /*
-     * IteratorAggregate
-     */
+    // endregion
+    // region IteratorAggregate
 
     /**
      * {@inheritDoc}
@@ -135,9 +131,8 @@ class ArrayCollection implements CollectionInterface
         return new ArrayIterator($this->values);
     }
 
-    /*
-     * Array Access
-     */
+    // endregion
+    // region ArrayAccess
 
     /**
      * {@inheritDoc}
@@ -164,14 +159,14 @@ class ArrayCollection implements CollectionInterface
      *
      * @param array-key $offset
      * @param TValue as mixed $value
+     *
+     * @throws ImmutableException
      */
     public function offsetSet(mixed $offset, mixed $value): never
     {
-        throw new RuntimeException(
-            sprintf(
-                'Cannot mutate immutable object of type %s.',
-                __CLASS__,
-            ),
+        throw new ImmutableException(
+            $this,
+            __FUNCTION__
         );
     }
 
@@ -179,14 +174,14 @@ class ArrayCollection implements CollectionInterface
      * {@inheritDoc}
      *
      * @param array-key $offset
+     *
+     * @throws ImmutableException
      */
     public function offsetUnset(mixed $offset): never
     {
-        throw new RuntimeException(
-            sprintf(
-                'Cannot mutate immutable object of type %s.',
-                __CLASS__,
-            ),
+        throw new ImmutableException(
+            $this,
+            __FUNCTION__
         );
     }
 

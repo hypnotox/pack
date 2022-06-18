@@ -15,7 +15,7 @@ use Traversable;
  * @psalm-consistent-constructor
  * @psalm-consistent-templates
  */
-class ArrayCollection implements CollectionInterface
+final class ArrayCollection implements CollectionInterface
 {
     // region Properties & Constructor
 
@@ -71,12 +71,12 @@ class ArrayCollection implements CollectionInterface
      * @param TValue    $value
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function set(mixed $key, mixed $value): static
+    public function set(mixed $key, mixed $value): self
     {
         $values = $this->values;
         $values[$key] = $value;
 
-        return new static($values);
+        return new self($values);
     }
 
     /**
@@ -85,18 +85,18 @@ class ArrayCollection implements CollectionInterface
      * @param array-key $key
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function unset(mixed $key): static
+    public function unset(mixed $key): self
     {
         $values = $this->values;
         unset($values[$key]);
 
-        return new static($values);
+        return new self($values);
     }
 
     // endregion
     // region Collection "modification" methods
 
-    public function splice(int $offset, ?int $length = null, array $replacement = null): static
+    public function splice(int $offset, ?int $length = null, array $replacement = null): self
     {
         $values = $this->values;
 
@@ -106,15 +106,15 @@ class ArrayCollection implements CollectionInterface
             array_splice($values, $offset, $length ?? \count($values));
         }
 
-        return new static($values);
+        return new self($values);
     }
 
-    public function slice(int $offset, ?int $length, bool $preserveKeys = false): static
+    public function slice(int $offset, ?int $length, bool $preserveKeys = false): self
     {
         $values = $this->values;
         $values = \array_slice($values, $offset, $length ?? \count($values), $preserveKeys);
 
-        return new static($values);
+        return new self($values);
     }
 
     // endregion

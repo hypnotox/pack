@@ -47,17 +47,17 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
      * @param TKey   $key
      * @param TValue $value
      */
-    public function set(mixed $key, mixed $value): static;
+    public function set(mixed $key, mixed $value): self;
 
     /**
      * @param TKey $key
      */
-    public function unset(mixed $key): static;
+    public function unset(mixed $key): self;
 
     #endregion
     #region Collection "modification" methods
 
-    public function splice(int $offset, ?int $length = null, array $replacement = null): static;
+    public function splice(int $offset, ?int $length = null, array $replacement = null): self;
 
     public function slice(int $offset, ?int $length, bool $preserveKeys = false): self;
 

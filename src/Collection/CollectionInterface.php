@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace HypnoTox\Pack\Collection;
 
-use ArrayAccess;
 use HypnoTox\Pack\DTO\KeyValuePair;
-use IteratorAggregate;
 
 /**
  * @template TKey
  * @template TValue
  * @psalm-immutable
  *
- * @extends IteratorAggregate<TKey, TValue>
- * @extends ArrayAccess<TKey, TValue>
+ * @extends \IteratorAggregate<TKey, TValue>
+ * @extends \ArrayAccess<TKey, TValue>
  */
-interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
+interface CollectionInterface extends \IteratorAggregate, \ArrayAccess, \Countable
 {
     // region Getters
 

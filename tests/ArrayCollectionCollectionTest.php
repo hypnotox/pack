@@ -2,27 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Tests\Collection;
+namespace Tests;
 
 use HypnoTox\Pack\ArrayCollection;
 use HypnoTox\Pack\ImmutableException;
-use JetBrains\PhpStorm\Pure;
-use Tests\BaseTest;
 
-class ArrayCollectionTest extends BaseTest
+class ArrayCollectionCollectionTest extends BaseCollectionTest
 {
+    // region Base
+
     /**
      * @return ArrayCollection<int, int>
      */
-    #[Pure]
-    private function getTestCollection(): ArrayCollection
+    protected function getTestCollection(): ArrayCollection
     {
         return new ArrayCollection([1, 2, 3]);
     }
 
-    /*
-     * Getters
-     */
+    // endregion
+    // region Getters
 
     public function testCanConstructAndGetValues(): void
     {
@@ -39,9 +37,8 @@ class ArrayCollectionTest extends BaseTest
         $this->assertSame(\count($collection5->getValues()), 3);
     }
 
-    /*
-     * Base methods
-     */
+    // endregion
+    // region Base methods
 
     public function testCanUseBaseMethods(): void
     {
@@ -58,9 +55,8 @@ class ArrayCollectionTest extends BaseTest
         $this->assertSame(2, $collection->unset(2)->count());
     }
 
-    /*
-     * Collection "modification" methods
-     */
+    // endregion
+    // region Collection "modification" methods
 
     public function testCanUseModificationMethods(): void
     {
@@ -70,11 +66,11 @@ class ArrayCollectionTest extends BaseTest
         $this->assertEquals([1, 2], $collection->slice(0, 2)->getValues());
         $this->assertEquals([2, 3], $collection->splice(0, 1)->getValues());
         $this->assertEquals([1, 2, 2], $collection->splice(2, 1, [2])->getValues());
+        $this->assertEquals([2, 4, 6], $collection->map(fn (int $value): int => $value * 2)->getValues());
     }
 
-    /*
-     * IteratorAggregate
-     */
+    // endregion
+    // region IteratorAggregate
 
     public function testCanUseAsTraversable(): void
     {
@@ -90,9 +86,8 @@ class ArrayCollectionTest extends BaseTest
         $this->assertSame([1, 2, 3], $newArray);
     }
 
-    /*
-     * Array Access
-     */
+    // endregion
+    // region ArrayAccess
 
     public function testCanUseWithArrayAccess(): void
     {
@@ -126,9 +121,8 @@ class ArrayCollectionTest extends BaseTest
         unset($collection[0]);
     }
 
-    /*
-    * Countable
-    */
+    // endregion
+    // region Countable
 
     public function testIsCountable(): void
     {
@@ -137,5 +131,8 @@ class ArrayCollectionTest extends BaseTest
         /** @var ArrayCollection<array-key, int> $newCollection */
         $this->assertInstanceOf(\Countable::class, $collection);
         $this->assertCount(3, $collection);
+        $this->assertSame(3, $collection->count());
     }
+
+    // endregion
 }

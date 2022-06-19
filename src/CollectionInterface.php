@@ -61,5 +61,14 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
 
     public function slice(int $offset, ?int $length, bool $preserveKeys = false): self;
 
+    /**
+     * @param pure-callable(TValue):TValue $callback
+     *
+     * @return self
+     * @noinspection PhpUndefinedClassInspection
+     * @noinspection PhpDocSignatureInspection
+     */
+    public function map(callable $callback): self;
+
     // endregion
 }

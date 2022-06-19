@@ -21,7 +21,6 @@ final class ArrayCollection implements CollectionInterface
 
     /**
      * @param array<TKey, TValue> $values
-     * @psalm-pure
      */
     public function __construct(
         private readonly array $values = [],
@@ -113,6 +112,14 @@ final class ArrayCollection implements CollectionInterface
     {
         $values = $this->values;
         $values = \array_slice($values, $offset, $length ?? \count($values), $preserveKeys);
+
+        return new self($values);
+    }
+
+    public function map(callable $callback): CollectionInterface
+    {
+        $values = $this->values;
+        $values = array_map($callback, $values);
 
         return new self($values);
     }

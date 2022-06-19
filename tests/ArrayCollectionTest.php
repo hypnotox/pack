@@ -8,7 +8,7 @@ use HypnoTox\Pack\Collection\ArrayCollection;
 use HypnoTox\Pack\DTO\KeyValuePair;
 use HypnoTox\Pack\Exception\ImmutableException;
 
-class ArrayCollectionTest extends BaseCollectionTest
+class ArrayCollectionTest extends BaseTest
 {
     // region Getters
 
@@ -60,9 +60,9 @@ class ArrayCollectionTest extends BaseCollectionTest
         $this->assertSame($count, $collection->count());
         $this->assertSame($count - 1, $collection->unset($lastKey)->count());
         $this->assertSame($unsetData, $collection->unset($lastKey)->toArray());
-        $this->assertSame($lastKey, $collection->findByValue($lastValue)?->key);
+        $this->assertSame($lastValue, $collection->findByValue($lastValue)?->value);
         $this->assertNull($collection->findByValue($nullValue));
-        $this->assertSame($lastKey, $collection->findByCallback(fn ($value): bool => $value === $lastValue)?->key);
+        $this->assertSame($lastValue, $collection->findByCallback(fn ($value): bool => $value === $lastValue)?->value);
         $this->assertNull($collection->findByCallback(fn ($value): bool => $value === $nullValue));
     }
 
@@ -261,10 +261,12 @@ class ArrayCollectionTest extends BaseCollectionTest
      */
     private function collectionProvider(): array
     {
-        $intListData = [10, 20, 30];
+        $faker = $this->getFaker();
+
+        $intListData = [$faker->randomDigit(), $faker->randomDigit(), $faker->randomDigit()];
         $intList = new ArrayCollection($intListData);
-        $intListExtraEntryOne = new KeyValuePair(3, 40);
-        $intListExtraEntryTwo = new KeyValuePair(4, 50);
+        $intListExtraEntryOne = new KeyValuePair(3, $faker->randomDigit());
+        $intListExtraEntryTwo = new KeyValuePair(4, $faker->randomDigit());
         $intListExtraData = [
             $intListExtraEntryOne->key => $intListExtraEntryOne->value,
             $intListExtraEntryTwo->key => $intListExtraEntryTwo->value,
@@ -278,10 +280,10 @@ class ArrayCollectionTest extends BaseCollectionTest
             $intListExtraEntryTwo,
         ];
 
-        $stringListData = ['10', '20', '30'];
+        $stringListData = [$faker->word(), $faker->word(), $faker->word()];
         $stringList = new ArrayCollection($stringListData);
-        $stringListExtraEntryOne = new KeyValuePair(3, '40');
-        $stringListExtraEntryTwo = new KeyValuePair(4, '50');
+        $stringListExtraEntryOne = new KeyValuePair(3, $faker->word());
+        $stringListExtraEntryTwo = new KeyValuePair(4, $faker->word());
         $stringListExtraData = [
             $stringListExtraEntryOne->key => $stringListExtraEntryOne->value,
             $stringListExtraEntryTwo->key => $stringListExtraEntryTwo->value,
@@ -295,10 +297,10 @@ class ArrayCollectionTest extends BaseCollectionTest
             $stringListExtraEntryTwo,
         ];
 
-        $objectListData = [(object) ['value' => 10], (object) ['value' => 20], (object) ['value' => 30]];
+        $objectListData = [(object) ['value' => $faker->randomDigit()], (object) ['value' => $faker->randomDigit()], (object) ['value' => $faker->randomDigit()]];
         $objectList = new ArrayCollection($objectListData);
-        $objectListExtraEntryOne = new KeyValuePair(3, (object) ['value' => 40]);
-        $objectListExtraEntryTwo = new KeyValuePair(4, (object) ['value' => 50]);
+        $objectListExtraEntryOne = new KeyValuePair(3, (object) ['value' => $faker->randomDigit()]);
+        $objectListExtraEntryTwo = new KeyValuePair(4, (object) ['value' => $faker->randomDigit()]);
         $objectListExtraData = [
             $objectListExtraEntryOne->key => $objectListExtraEntryOne->value,
             $objectListExtraEntryTwo->key => $objectListExtraEntryTwo->value,
@@ -312,10 +314,10 @@ class ArrayCollectionTest extends BaseCollectionTest
             $objectListExtraEntryTwo,
         ];
 
-        $intAssociativeData = ['1' => 10, '2' => 20, '3' => 30];
+        $intAssociativeData = [$faker->word() => $faker->randomDigit(), $faker->word() => $faker->randomDigit(), $faker->word() => $faker->randomDigit()];
         $intAssociative = new ArrayCollection($intAssociativeData);
-        $intAssociativeExtraEntryOne = new KeyValuePair('4', 40);
-        $intAssociativeExtraEntryTwo = new KeyValuePair('5', 50);
+        $intAssociativeExtraEntryOne = new KeyValuePair($faker->word(), $faker->randomDigit());
+        $intAssociativeExtraEntryTwo = new KeyValuePair($faker->word(), $faker->randomDigit());
         $intAssociativeExtraData = [
             $intAssociativeExtraEntryOne->key => $intAssociativeExtraEntryOne->value,
             $intAssociativeExtraEntryTwo->key => $intAssociativeExtraEntryTwo->value,
@@ -329,10 +331,10 @@ class ArrayCollectionTest extends BaseCollectionTest
             $intAssociativeExtraEntryTwo,
         ];
 
-        $stringAssociativeData = ['1' => '10', '2' => '20', '3' => '30'];
+        $stringAssociativeData = [$faker->word() => $faker->word(), $faker->word() => $faker->word(), $faker->word() => $faker->word()];
         $stringAssociative = new ArrayCollection($stringAssociativeData);
-        $stringAssociativeExtraEntryOne = new KeyValuePair('4', '40');
-        $stringAssociativeExtraEntryTwo = new KeyValuePair('5', '50');
+        $stringAssociativeExtraEntryOne = new KeyValuePair($faker->word(), $faker->word());
+        $stringAssociativeExtraEntryTwo = new KeyValuePair($faker->word(), $faker->word());
         $stringAssociativeExtraData = [
             $stringAssociativeExtraEntryOne->key => $stringAssociativeExtraEntryOne->value,
             $stringAssociativeExtraEntryTwo->key => $stringAssociativeExtraEntryTwo->value,
@@ -346,10 +348,14 @@ class ArrayCollectionTest extends BaseCollectionTest
             $stringAssociativeExtraEntryTwo,
         ];
 
-        $objectAssociativeData = ['1' => (object) ['value' => 10], '2' => (object) ['value' => 20], '3' => (object) ['value' => 30]];
+        $objectAssociativeData = [
+            $faker->word() => (object) ['value' => $faker->randomDigit()],
+            $faker->word() => (object) ['value' => $faker->randomDigit()],
+            $faker->word() => (object) ['value' => $faker->randomDigit()],
+        ];
         $objectAssociative = new ArrayCollection($objectAssociativeData);
-        $objectAssociativeExtraEntryOne = new KeyValuePair('4', (object) ['value' => 40]);
-        $objectAssociativeExtraEntryTwo = new KeyValuePair('5', (object) ['value' => 50]);
+        $objectAssociativeExtraEntryOne = new KeyValuePair($faker->word(), (object) ['value' => $faker->randomDigit()]);
+        $objectAssociativeExtraEntryTwo = new KeyValuePair($faker->word(), (object) ['value' => $faker->randomDigit()]);
         $objectAssociativeExtraData = [
             $objectAssociativeExtraEntryOne->key => $objectAssociativeExtraEntryOne->value,
             $objectAssociativeExtraEntryTwo->key => $objectAssociativeExtraEntryTwo->value,

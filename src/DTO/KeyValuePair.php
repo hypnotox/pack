@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace HypnoTox\Pack\DTO;
 
 /**
- * @template TKey as mixed
- * @template TValue as mixed
+ * @template TKey
+ * @template TValue
  * @psalm-immutable
  */
 class KeyValuePair

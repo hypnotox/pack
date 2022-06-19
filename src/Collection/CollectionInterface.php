@@ -21,9 +21,19 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
     // region Getters
 
     /**
-     * @return iterable<TKey, TValue>
+     * @return list<TKey>
      */
-    public function getValues(): iterable;
+    public function getKeys(): array;
+
+    /**
+     * @return list<TValue>
+     */
+    public function getValues(): array;
+
+    /**
+     * @return array<array-key, TValue>
+     */
+    public function toArray(): array;
 
     // endregion
     // region Base methods
@@ -50,11 +60,6 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
      * @param TKey $key
      */
     public function unset(mixed $key): self;
-
-    /**
-     * @return array<array-key, TValue>
-     */
-    public function toArray(): array;
 
     /**
      * @return TValue|null

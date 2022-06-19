@@ -53,6 +53,7 @@ class ArrayCollectionCollectionTest extends BaseCollectionTest
         $this->assertSame(4, $collection->set(3, 4)->get(3));
         $this->assertSame(3, $collection->count());
         $this->assertSame(2, $collection->unset(2)->count());
+        $this->assertSame([1, 2], $collection->unset(2)->toArray());
     }
 
     // endregion
@@ -67,6 +68,7 @@ class ArrayCollectionCollectionTest extends BaseCollectionTest
         $this->assertEquals([2, 3], $collection->splice(0, 1)->getValues());
         $this->assertEquals([1, 2, 2], $collection->splice(2, 1, [2])->getValues());
         $this->assertEquals([2, 4, 6], $collection->map(fn (int $value): int => $value * 2)->getValues());
+        $this->assertEquals([1, 2, 3, 4, 5], $collection->merge([4, 5])->getValues());
     }
 
     // endregion

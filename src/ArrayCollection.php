@@ -92,6 +92,11 @@ final class ArrayCollection implements CollectionInterface
         return new self($values);
     }
 
+    public function toArray(): array
+    {
+        return $this->values;
+    }
+
     // endregion
     // region Collection "modification" methods
 
@@ -114,6 +119,18 @@ final class ArrayCollection implements CollectionInterface
         $values = \array_slice($values, $offset, $length ?? \count($values), $preserveKeys);
 
         return new self($values);
+    }
+
+    public function merge(CollectionInterface|array $collection): CollectionInterface
+    {
+        $array = $collection instanceof CollectionInterface ? $collection->toArray() : $collection;
+
+        return new self(
+            array_merge(
+                $this->values,
+                $array,
+            ),
+        );
     }
 
     public function map(callable $callback): CollectionInterface
@@ -192,12 +209,13 @@ final class ArrayCollection implements CollectionInterface
         );
     }
 
-    /*
-    * Countable
-    */
+    // endregion
+    // region Countable
 
     public function count(): int
     {
         return \count($this->values);
     }
+
+    // endregion
 }

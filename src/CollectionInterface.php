@@ -54,6 +54,11 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
      */
     public function unset(mixed $key): self;
 
+    /**
+     * @return array<array-key, TValue>
+     */
+    public function toArray(): array;
+
     // endregion
     // region Collection "modification" methods
 
@@ -61,10 +66,11 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
 
     public function slice(int $offset, ?int $length, bool $preserveKeys = false): self;
 
+    public function merge(array|self $collection): self;
+
     /**
      * @param pure-callable(TValue):TValue $callback
      *
-     * @return self
      * @noinspection PhpUndefinedClassInspection
      * @noinspection PhpDocSignatureInspection
      */

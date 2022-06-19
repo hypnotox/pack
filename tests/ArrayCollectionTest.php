@@ -47,6 +47,8 @@ class ArrayCollectionTest extends BaseCollectionTest
 
         /** @var mixed $lastValue */
         $lastValue = $data[$lastKey];
+        $nullValue = \is_object($lastValue) ? new \stdClass() : ((string) $lastValue).'_UNDEFINED';
+
         $unsetData = $data;
         unset($unsetData[$lastKey]);
 
@@ -59,9 +61,9 @@ class ArrayCollectionTest extends BaseCollectionTest
         $this->assertSame($count - 1, $collection->unset($lastKey)->count());
         $this->assertSame($unsetData, $collection->unset($lastKey)->toArray());
         $this->assertSame($lastKey, $collection->findByValue($lastValue)?->key);
-        $this->assertNull($collection->findByValue(((string) $lastValue).'_UNDEFINED'));
+        $this->assertNull($collection->findByValue($nullValue));
         $this->assertSame($lastKey, $collection->findByCallback(fn ($value): bool => $value === $lastValue)?->key);
-        $this->assertNull($collection->findByCallback(fn ($value): bool => $value === ((string) $lastValue).'_UNDEFINED'));
+        $this->assertNull($collection->findByCallback(fn ($value): bool => $value === $nullValue));
     }
 
     // endregion
@@ -293,6 +295,23 @@ class ArrayCollectionTest extends BaseCollectionTest
             $stringListExtraEntryTwo,
         ];
 
+        $objectListData = [(object) ['value' => 10], (object) ['value' => 20], (object) ['value' => 30]];
+        $objectList = new ArrayCollection($objectListData);
+        $objectListExtraEntryOne = new KeyValuePair(3, (object) ['value' => 40]);
+        $objectListExtraEntryTwo = new KeyValuePair(4, (object) ['value' => 50]);
+        $objectListExtraData = [
+            $objectListExtraEntryOne->key => $objectListExtraEntryOne->value,
+            $objectListExtraEntryTwo->key => $objectListExtraEntryTwo->value,
+        ];
+
+        $objectListEntry = [
+            $objectList,
+            $objectListData,
+            $objectListExtraData,
+            $objectListExtraEntryOne,
+            $objectListExtraEntryTwo,
+        ];
+
         $intAssociativeData = ['1' => 10, '2' => 20, '3' => 30];
         $intAssociative = new ArrayCollection($intAssociativeData);
         $intAssociativeExtraEntryOne = new KeyValuePair('4', 40);
@@ -327,11 +346,30 @@ class ArrayCollectionTest extends BaseCollectionTest
             $stringAssociativeExtraEntryTwo,
         ];
 
+        $objectAssociativeData = ['1' => (object) ['value' => 10], '2' => (object) ['value' => 20], '3' => (object) ['value' => 30]];
+        $objectAssociative = new ArrayCollection($objectAssociativeData);
+        $objectAssociativeExtraEntryOne = new KeyValuePair('4', (object) ['value' => 40]);
+        $objectAssociativeExtraEntryTwo = new KeyValuePair('5', (object) ['value' => 50]);
+        $objectAssociativeExtraData = [
+            $objectAssociativeExtraEntryOne->key => $objectAssociativeExtraEntryOne->value,
+            $objectAssociativeExtraEntryTwo->key => $objectAssociativeExtraEntryTwo->value,
+        ];
+
+        $objectAssociativeEntry = [
+            $objectAssociative,
+            $objectAssociativeData,
+            $objectAssociativeExtraData,
+            $objectAssociativeExtraEntryOne,
+            $objectAssociativeExtraEntryTwo,
+        ];
+
         return [
             $intListEntry,
             $stringListEntry,
+            $objectListEntry,
             $intAssociativeEntry,
             $stringAssociativeEntry,
+            $objectAssociativeEntry,
         ];
     }
 

@@ -7,7 +7,7 @@ namespace Tests;
 use HypnoTox\Pack\ArrayCollection;
 use HypnoTox\Pack\ImmutableException;
 
-class ArrayCollectionCollectionTest extends BaseCollectionTest
+class ArrayCollectionTest extends BaseCollectionTest
 {
     // region Base
 

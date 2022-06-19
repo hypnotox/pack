@@ -110,6 +110,28 @@ final class ArrayCollection implements CollectionInterface
         return $key ? $this->values[$key] : null;
     }
 
+    public function findByValue(mixed $search): KeyValuePair|null
+    {
+        foreach ($this->values as $key => $value) {
+            if ($value === $search) {
+                return new KeyValuePair($key, $value);
+            }
+        }
+
+        return null;
+    }
+
+    public function findByCallback(callable $callback): KeyValuePair|null
+    {
+        foreach ($this->values as $key => $value) {
+            if ($callback($value, $key)) {
+                return new KeyValuePair($key, $value);
+            }
+        }
+
+        return null;
+    }
+
     // endregion
     // region Collection "modification" methods
 
@@ -160,8 +182,14 @@ final class ArrayCollection implements CollectionInterface
         $values = [];
 
         foreach ($this->values as $k => $v) {
+            /** @var KeyValuePair<TKey, TValue>|null $result */
             $result = $callback($v, $k);
-            $values[$result[0]] = $result[1];
+
+            if (null === $result) {
+                continue;
+            }
+
+            $values[$result->key] = $result->value;
         }
 
         return new self($values);

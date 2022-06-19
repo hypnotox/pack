@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Tests;
 
 use HypnoTox\Pack\ArrayCollection;
+use HypnoTox\Pack\CollectionInterface;
 use HypnoTox\Pack\ImmutableException;
+use HypnoTox\Pack\KeyValuePair;
 
 class ArrayCollectionTest extends BaseCollectionTest
 {
@@ -43,17 +45,16 @@ class ArrayCollectionTest extends BaseCollectionTest
     public function testCanUseBaseMethods(): void
     {
         $collection = $this->getTestCollection();
+        $this->assertCollectionHasDefaultShape($collection);
 
         $this->assertTrue($collection->exists(2));
-
-        $this->assertSame(1, $collection->get(0));
-        $this->assertSame(2, $collection->get(1));
-        $this->assertSame(3, $collection->get(2));
-
         $this->assertSame(4, $collection->set(3, 4)->get(3));
         $this->assertSame(3, $collection->count());
         $this->assertSame(2, $collection->unset(2)->count());
         $this->assertSame([1, 2], $collection->unset(2)->toArray());
+        $this->assertSame(2, $collection->findByValue(3)?->key);
+        $this->assertSame(2, $collection->findByCallback(fn ($value): bool => 3 === $value)?->key);
+        $this->assertCollectionHasDefaultShape($collection);
     }
 
     // endregion
@@ -68,8 +69,9 @@ class ArrayCollectionTest extends BaseCollectionTest
         $this->assertEquals([2, 3], $collection->splice(0, 1)->getValues());
         $this->assertEquals([1, 2, 2], $collection->splice(2, 1, [2])->getValues());
         $this->assertEquals([2, 4, 6], $collection->map(fn (int $value): int => $value * 2)->getValues());
-        $this->assertEquals([2 => 1, 4 => 2, 6 => 3], $collection->mapWithKeys(fn (int $value): array => [$value * 2, $value])->getValues());
+        $this->assertEquals([2 => 1, 4 => 2, 6 => 3], $collection->mapWithKeys(fn (int $value): KeyValuePair => new KeyValuePair($value * 2, $value))->getValues());
         $this->assertEquals([1, 2, 3, 4, 5], $collection->merge([4, 5])->getValues());
+        $this->assertCollectionHasDefaultShape($collection);
     }
 
     // endregion
@@ -87,6 +89,7 @@ class ArrayCollectionTest extends BaseCollectionTest
         }
 
         $this->assertSame([1, 2, 3], $newArray);
+        $this->assertCollectionHasDefaultShape($collection);
     }
 
     // endregion
@@ -106,6 +109,7 @@ class ArrayCollectionTest extends BaseCollectionTest
         $this->assertSame(1, $collection[0]);
         $this->assertSame(2, $collection[1]);
         $this->assertSame(3, $collection[2]);
+        $this->assertCollectionHasDefaultShape($collection);
     }
 
     public function testArraySetThrows(): void
@@ -135,6 +139,17 @@ class ArrayCollectionTest extends BaseCollectionTest
         $this->assertInstanceOf(\Countable::class, $collection);
         $this->assertCount(3, $collection);
         $this->assertSame(3, $collection->count());
+        $this->assertCollectionHasDefaultShape($collection);
+    }
+
+    // endregion
+    // region Helpers
+
+    private function assertCollectionHasDefaultShape(CollectionInterface $collection): void
+    {
+        $this->assertSame(1, $collection->get(0));
+        $this->assertSame(2, $collection->get(1));
+        $this->assertSame(3, $collection->get(2));
     }
 
     // endregion

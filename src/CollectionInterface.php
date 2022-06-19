@@ -65,6 +65,23 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
      */
     public function last(): mixed;
 
+    /**
+     * @param TValue $search
+     *
+     * @return KeyValuePair<TKey, TValue>|null
+     */
+    public function findByValue(mixed $search): KeyValuePair|null;
+
+    /**
+     * @param pure-callable(TValue, TKey):bool $callback
+     *
+     * @return KeyValuePair<TKey, TValue>|null
+     *
+     * @noinspection PhpUndefinedClassInspection
+     * @noinspection PhpDocSignatureInspection
+     */
+    public function findByCallback(callable $callback): KeyValuePair|null;
+
     // endregion
     // region Collection "modification" methods
 
@@ -83,7 +100,7 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
     public function map(callable $callback): self;
 
     /**
-     * @param pure-callable(TValue, TKey):array{TKey, TValue} $callback
+     * @param pure-callable(TValue, TKey):KeyValuePair<TKey, TValue> $callback
      *
      * @noinspection PhpUndefinedClassInspection
      * @noinspection PhpDocSignatureInspection

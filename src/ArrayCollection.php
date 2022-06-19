@@ -9,11 +9,10 @@ use Traversable;
 
 /**
  * @template TKey as array-key
- * @template TValue
+ * @template TValue as mixed
  *
  * @psalm-immutable
- * @psalm-consistent-constructor
- * @psalm-consistent-templates
+ * @template-implements CollectionInterface<TKey, TValue>
  */
 final class ArrayCollection implements CollectionInterface
 {
@@ -44,7 +43,7 @@ final class ArrayCollection implements CollectionInterface
     /**
      * {@inheritDoc}
      *
-     * @param array-key $key
+     * @param TKey $key
      * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function exists(mixed $key): bool
@@ -55,7 +54,7 @@ final class ArrayCollection implements CollectionInterface
     /**
      * {@inheritDoc}
      *
-     * @param array-key $key
+     * @param TKey $key
      * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function get(mixed $key): mixed
@@ -66,8 +65,8 @@ final class ArrayCollection implements CollectionInterface
     /**
      * {@inheritDoc}
      *
-     * @param array-key $key
-     * @param TValue    $value
+     * @param TKey   $key
+     * @param TValue $value
      * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function set(mixed $key, mixed $value): self
@@ -81,7 +80,7 @@ final class ArrayCollection implements CollectionInterface
     /**
      * {@inheritDoc}
      *
-     * @param array-key $key
+     * @param TKey $key
      * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function unset(mixed $key): self
@@ -95,6 +94,20 @@ final class ArrayCollection implements CollectionInterface
     public function toArray(): array
     {
         return $this->values;
+    }
+
+    public function first(): mixed
+    {
+        $key = array_key_first($this->values);
+
+        return $key ? $this->values[$key] : null;
+    }
+
+    public function last(): mixed
+    {
+        $key = array_key_last($this->values);
+
+        return $key ? $this->values[$key] : null;
     }
 
     // endregion
@@ -141,6 +154,19 @@ final class ArrayCollection implements CollectionInterface
         return new self($values);
     }
 
+    public function mapWithKeys(callable $callback): CollectionInterface
+    {
+        /** @var array<TKey, TValue> $values */
+        $values = [];
+
+        foreach ($this->values as $k => $v) {
+            $result = $callback($v, $k);
+            $values[$result[0]] = $result[1];
+        }
+
+        return new self($values);
+    }
+
     // endregion
     // region IteratorAggregate
 
@@ -148,7 +174,7 @@ final class ArrayCollection implements CollectionInterface
      * {@inheritDoc}
      *
      * @psalm-suppress ImplementedReturnTypeMismatch
-     * @psalm-return ArrayIterator<array-key, TValue>
+     * @psalm-return ArrayIterator<TKey, TValue>
      */
     public function getIterator(): Traversable
     {
@@ -161,7 +187,7 @@ final class ArrayCollection implements CollectionInterface
     /**
      * {@inheritDoc}
      *
-     * @param array-key $offset
+     * @param TKey $offset
      */
     public function offsetExists(mixed $offset): bool
     {
@@ -171,7 +197,7 @@ final class ArrayCollection implements CollectionInterface
     /**
      * {@inheritDoc}
      *
-     * @param array-key $offset
+     * @param TKey $offset
      */
     public function offsetGet(mixed $offset): mixed
     {
@@ -181,7 +207,7 @@ final class ArrayCollection implements CollectionInterface
     /**
      * {@inheritDoc}
      *
-     * @param array-key $offset
+     * @param TKey $offset
      * @param TValue as mixed $value
      *
      * @throws ImmutableException
@@ -197,7 +223,7 @@ final class ArrayCollection implements CollectionInterface
     /**
      * {@inheritDoc}
      *
-     * @param array-key $offset
+     * @param TKey $offset
      *
      * @throws ImmutableException
      */

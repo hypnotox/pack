@@ -11,8 +11,6 @@ use IteratorAggregate;
  * @template TKey
  * @template TValue
  * @psalm-immutable
- * @psalm-consistent-constructor
- * @psalm-consistent-templates
  *
  * @extends IteratorAggregate<TKey, TValue>
  * @extends ArrayAccess<TKey, TValue>
@@ -31,8 +29,6 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
 
     /**
      * @param TKey $key
-     *
-     * @return TValue
      */
     public function exists(mixed $key): bool;
 
@@ -59,6 +55,16 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
      */
     public function toArray(): array;
 
+    /**
+     * @return TValue|null
+     */
+    public function first(): mixed;
+
+    /**
+     * @return TValue|null
+     */
+    public function last(): mixed;
+
     // endregion
     // region Collection "modification" methods
 
@@ -75,6 +81,14 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
      * @noinspection PhpDocSignatureInspection
      */
     public function map(callable $callback): self;
+
+    /**
+     * @param pure-callable(TValue, TKey):array{TKey, TValue} $callback
+     *
+     * @noinspection PhpUndefinedClassInspection
+     * @noinspection PhpDocSignatureInspection
+     */
+    public function mapWithKeys(callable $callback): self;
 
     // endregion
 }

@@ -68,6 +68,7 @@ class ArrayCollectionCollectionTest extends BaseCollectionTest
         $this->assertEquals([2, 3], $collection->splice(0, 1)->getValues());
         $this->assertEquals([1, 2, 2], $collection->splice(2, 1, [2])->getValues());
         $this->assertEquals([2, 4, 6], $collection->map(fn (int $value): int => $value * 2)->getValues());
+        $this->assertEquals([2 => 1, 4 => 2, 6 => 3], $collection->mapWithKeys(fn (int $value): array => [$value * 2, $value])->getValues());
         $this->assertEquals([1, 2, 3, 4, 5], $collection->merge([4, 5])->getValues());
     }
 

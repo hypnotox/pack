@@ -10,17 +10,6 @@ use HypnoTox\Pack\Exception\ImmutableException;
 
 class ArrayCollectionTest extends BaseCollectionTest
 {
-    // region Base
-
-    /**
-     * @return ArrayCollection<int, int>
-     */
-    protected function getTestCollection(): ArrayCollection
-    {
-        return new ArrayCollection([1, 2, 3]);
-    }
-
-    // endregion
     // region Getters
 
     /**
@@ -28,9 +17,11 @@ class ArrayCollectionTest extends BaseCollectionTest
      *
      * @dataProvider collectionProvider
      */
-    public function testCanConstructAndGetValues(ArrayCollection $collection, array $data): void
+    public function testCanConstructAndGetData(ArrayCollection $collection, array $data): void
     {
         $this->assertCount(\count($data), $collection->toArray());
+        $this->assertCount(\count($data), $collection->getKeys());
+        $this->assertCount(\count($data), $collection->getValues());
     }
 
     // endregion
@@ -60,13 +51,17 @@ class ArrayCollectionTest extends BaseCollectionTest
         unset($unsetData[$lastKey]);
 
         $this->assertTrue($collection->exists($lastKey));
+        $this->assertSame(reset($data), $collection->first());
+        $this->assertSame($lastValue, $collection->last());
         $this->assertSame($extraDataEntryOne->value, $collection->set($extraDataEntryOne->key, $extraDataEntryOne->value)->get($extraDataEntryOne->key));
         $this->assertSame($extraDataEntryTwo->value, $collection->set($extraDataEntryTwo->key, $extraDataEntryTwo->value)->get($extraDataEntryTwo->key));
         $this->assertSame($count, $collection->count());
         $this->assertSame($count - 1, $collection->unset($lastKey)->count());
         $this->assertSame($unsetData, $collection->unset($lastKey)->toArray());
         $this->assertSame($lastKey, $collection->findByValue($lastValue)?->key);
+        $this->assertNull($collection->findByValue(((string) $lastValue).'_UNDEFINED'));
         $this->assertSame($lastKey, $collection->findByCallback(fn ($value): bool => $value === $lastValue)?->key);
+        $this->assertNull($collection->findByCallback(fn ($value): bool => $value === ((string) $lastValue).'_UNDEFINED'));
     }
 
     // endregion

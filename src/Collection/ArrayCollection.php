@@ -108,14 +108,14 @@ final class ArrayCollection implements CollectionInterface
     {
         $key = array_key_first($this->data);
 
-        return $key ? $this->data[$key] : null;
+        return null !== $key ? $this->data[$key] : null;
     }
 
     public function last(): mixed
     {
         $key = array_key_last($this->data);
 
-        return $key ? $this->data[$key] : null;
+        return null !== $key ? $this->data[$key] : null;
     }
 
     public function findByValue(mixed $search): KeyValuePair|null
@@ -208,13 +208,7 @@ final class ArrayCollection implements CollectionInterface
         $values = [];
 
         foreach ($this->data as $k => $v) {
-            /** @var KeyValuePair<TKey, TValue>|null $result */
             $result = $callback($v, $k);
-
-            if (null === $result) {
-                continue;
-            }
-
             $values[$result->key] = $result->value;
         }
 

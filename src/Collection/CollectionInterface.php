@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace HypnoTox\Pack;
+namespace HypnoTox\Pack\Collection;
 
 use ArrayAccess;
+use HypnoTox\Pack\DTO\KeyValuePair;
 use IteratorAggregate;
 
 /**

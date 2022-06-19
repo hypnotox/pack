@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace HypnoTox\Pack;
+namespace HypnoTox\Pack\Collection;
 
 use ArrayIterator;
+use HypnoTox\Pack\DTO\KeyValuePair;
+use HypnoTox\Pack\Exception\ImmutableException;
 use Traversable;
 
 /**

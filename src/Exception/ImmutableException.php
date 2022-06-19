@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace HypnoTox\Pack;
+namespace HypnoTox\Pack\Exception;
 
+use HypnoTox\Pack\Collection\CollectionInterface;
 use Throwable;
 
 class ImmutableException extends \Exception

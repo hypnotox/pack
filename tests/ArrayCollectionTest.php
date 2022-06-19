@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use HypnoTox\Pack\ArrayCollection;
-use HypnoTox\Pack\CollectionInterface;
-use HypnoTox\Pack\ImmutableException;
-use HypnoTox\Pack\KeyValuePair;
+use HypnoTox\Pack\Collection\ArrayCollection;
+use HypnoTox\Pack\Collection\CollectionInterface;
+use HypnoTox\Pack\DTO\KeyValuePair;
+use HypnoTox\Pack\Exception\ImmutableException;
 
 class ArrayCollectionTest extends BaseCollectionTest
 {

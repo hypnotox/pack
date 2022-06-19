@@ -170,15 +170,33 @@ final class ArrayCollection implements CollectionInterface
         );
     }
 
-    public function map(callable $callback): CollectionInterface
+    public function mapKeys(callable $callback): CollectionInterface
     {
-        $values = $this->values;
-        $values = array_map($callback, $values);
+        /** @var array<TKey, TValue> $values */
+        $values = [];
+
+        foreach ($this->values as $k => $v) {
+            $key = $callback($v, $k);
+            $values[$key] = $v;
+        }
 
         return new self($values);
     }
 
-    public function mapWithKeys(callable $callback): CollectionInterface
+    public function mapValues(callable $callback): CollectionInterface
+    {
+        /** @var array<TKey, TValue> $values */
+        $values = [];
+
+        foreach ($this->values as $k => $v) {
+            $value = $callback($v, $k);
+            $values[$k] = $value;
+        }
+
+        return new self($values);
+    }
+
+    public function mapKeyValuePairs(callable $callback): CollectionInterface
     {
         /** @var array<TKey, TValue> $values */
         $values = [];

@@ -98,7 +98,11 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
     public function merge(array|self $collection): self;
 
     /**
-     * @param pure-callable(TValue, TKey):TKey $callback
+     * @template TMapKey as array-key
+     *
+     * @param pure-callable(TValue, TKey):TMapKey $callback
+     *
+     * @return self<TMapKey, TValue>
      *
      * @noinspection PhpUndefinedClassInspection
      * @noinspection PhpDocSignatureInspection
@@ -106,7 +110,11 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
     public function mapKeys(callable $callback): self;
 
     /**
-     * @param pure-callable(TValue, TKey):TValue $callback
+     * @template TMapValue
+     *
+     * @param pure-callable(TValue, TKey):TMapValue $callback
+     *
+     * @return self<TKey, TMapValue>
      *
      * @noinspection PhpUndefinedClassInspection
      * @noinspection PhpDocSignatureInspection
@@ -114,7 +122,10 @@ interface CollectionInterface extends IteratorAggregate, ArrayAccess, \Countable
     public function mapValues(callable $callback): self;
 
     /**
-     * @param pure-callable(TValue, TKey):KeyValuePair<TKey, TValue> $callback
+     * @template TMapKey as array-key
+     * @template TMapValue
+     *
+     * @param pure-callable(TValue, TKey):KeyValuePair<TMapKey, TMapValue> $callback
      *
      * @noinspection PhpUndefinedClassInspection
      * @noinspection PhpDocSignatureInspection

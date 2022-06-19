@@ -166,8 +166,6 @@ class ArrayCollectionTest extends BaseCollectionTest
         $callback = static function (mixed $_value, int|string $key): KeyValuePair {
             if (\is_string($key)) {
                 $key = \strlen($key);
-
-                return new KeyValuePair($key * 2, $key * 2);
             }
 
             return new KeyValuePair($key * 2, $key * 2);

@@ -60,12 +60,12 @@ interface CollectionInterface extends \IteratorAggregate, \ArrayAccess, \Countab
     public function unset(mixed $key): self;
 
     /**
-     * @return TValue|null
+     * @return KeyValuePair<TKey, TValue>|null
      */
     public function first(): mixed;
 
     /**
-     * @return TValue|null
+     * @return KeyValuePair<TKey, TValue>|null
      */
     public function last(): mixed;
 

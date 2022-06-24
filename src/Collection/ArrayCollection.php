@@ -104,18 +104,26 @@ final class ArrayCollection implements CollectionInterface
         return new self($values);
     }
 
-    public function first(): mixed
+    public function first(): ?KeyValuePair
     {
         $key = array_key_first($this->data);
 
-        return null !== $key ? $this->data[$key] : null;
+        if ($key === null) {
+            return null;
+        }
+
+        return new KeyValuePair($key, $this->data[$key]);
     }
 
-    public function last(): mixed
+    public function last(): ?KeyValuePair
     {
         $key = array_key_last($this->data);
 
-        return null !== $key ? $this->data[$key] : null;
+        if ($key === null) {
+            return null;
+        }
+
+        return new KeyValuePair($key, $this->data[$key]);
     }
 
     public function findByValue(mixed $search): KeyValuePair|null

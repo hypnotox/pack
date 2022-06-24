@@ -15,7 +15,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanConstructAndGetData(ArrayCollection $collection, array $data): void
     {
@@ -30,7 +30,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseBaseMethodExists(
         ArrayCollection $collection,
@@ -44,7 +44,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseBaseMethodFirstAndLast(
         ArrayCollection $collection,
@@ -55,8 +55,8 @@ class ArrayCollectionTest extends BaseTest
         /** @var mixed $lastValue */
         $lastValue = $data[$lastKey];
 
-        $this->assertSame(reset($data), $collection->first());
-        $this->assertSame($lastValue, $collection->last());
+        $this->assertSame(reset($data), $collection->first()?->value);
+        $this->assertSame($lastValue, $collection->last()?->value);
     }
 
     /**
@@ -65,7 +65,7 @@ class ArrayCollectionTest extends BaseTest
      * @param KeyValuePair<array-key, mixed>    $extraDataEntryOne
      * @param KeyValuePair<array-key, mixed>    $extraDataEntryTwo
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseBaseMethodSetAndGet(
         ArrayCollection $collection,
@@ -85,7 +85,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseBaseMethodUnset(
         ArrayCollection $collection,
@@ -104,7 +104,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseBaseMethodFindByValue(
         ArrayCollection $collection,
@@ -123,7 +123,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseBaseMethodFindByCallback(
         ArrayCollection $collection,
@@ -146,7 +146,7 @@ class ArrayCollectionTest extends BaseTest
      * @param non-empty-array<array-key, mixed> $data
      * @param non-empty-array<array-key, mixed> $extraData
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseModificationMethodSliceAndSplice(
         ArrayCollection $collection,
@@ -169,7 +169,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseModificationMethodMapKeys(
         ArrayCollection $collection,
@@ -198,7 +198,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseModificationMethodMapValues(
         ArrayCollection $collection,
@@ -227,7 +227,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseModificationMethodMapKeyValuePairs(
         ArrayCollection $collection,
@@ -260,7 +260,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseAsTraversable(ArrayCollection $collection, array $data): void
     {
@@ -282,7 +282,7 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testCanUseWithArrayAccess(ArrayCollection $collection, array $data): void
     {
@@ -294,7 +294,7 @@ class ArrayCollectionTest extends BaseTest
     }
 
     /**
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testArraySetThrows(ArrayCollection $collection): void
     {
@@ -303,7 +303,7 @@ class ArrayCollectionTest extends BaseTest
     }
 
     /**
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testArrayUnsetThrows(ArrayCollection $collection): void
     {
@@ -317,139 +317,13 @@ class ArrayCollectionTest extends BaseTest
     /**
      * @param non-empty-array<array-key, mixed> $data
      *
-     * @dataProvider collectionProvider
+     * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
     public function testIsCountable(ArrayCollection $collection, array $data): void
     {
         $this->assertInstanceOf(\Countable::class, $collection);
         $this->assertCount(\count($data), $collection);
         $this->assertSame(\count($data), $collection->count());
-    }
-
-    // endregion
-    // region DataProvider
-
-    /**
-     * @return list<array{ArrayCollection, array<array-key, mixed>, array<array-key, mixed>, KeyValuePair<array-key, mixed>, KeyValuePair<array-key, mixed>}>
-     */
-    private function collectionProvider(): array
-    {
-        $faker = $this->getFaker();
-
-        $intListData = [$faker->randomDigit(), $faker->randomDigit(), $faker->randomDigit()];
-        $intList = new ArrayCollection($intListData);
-        $intListExtraEntryOne = new KeyValuePair(3, $faker->randomDigit());
-        $intListExtraEntryTwo = new KeyValuePair(4, $faker->randomDigit());
-        $intListExtraData = [
-            $intListExtraEntryOne->key => $intListExtraEntryOne->value,
-            $intListExtraEntryTwo->key => $intListExtraEntryTwo->value,
-        ];
-
-        $intListEntry = [
-            $intList,
-            $intListData,
-            $intListExtraData,
-            $intListExtraEntryOne,
-            $intListExtraEntryTwo,
-        ];
-
-        $stringListData = [$faker->word(), $faker->word(), $faker->word()];
-        $stringList = new ArrayCollection($stringListData);
-        $stringListExtraEntryOne = new KeyValuePair(3, $faker->word());
-        $stringListExtraEntryTwo = new KeyValuePair(4, $faker->word());
-        $stringListExtraData = [
-            $stringListExtraEntryOne->key => $stringListExtraEntryOne->value,
-            $stringListExtraEntryTwo->key => $stringListExtraEntryTwo->value,
-        ];
-
-        $stringListEntry = [
-            $stringList,
-            $stringListData,
-            $stringListExtraData,
-            $stringListExtraEntryOne,
-            $stringListExtraEntryTwo,
-        ];
-
-        $objectListData = [(object) ['value' => $faker->randomDigit()], (object) ['value' => $faker->randomDigit()], (object) ['value' => $faker->randomDigit()]];
-        $objectList = new ArrayCollection($objectListData);
-        $objectListExtraEntryOne = new KeyValuePair(3, (object) ['value' => $faker->randomDigit()]);
-        $objectListExtraEntryTwo = new KeyValuePair(4, (object) ['value' => $faker->randomDigit()]);
-        $objectListExtraData = [
-            $objectListExtraEntryOne->key => $objectListExtraEntryOne->value,
-            $objectListExtraEntryTwo->key => $objectListExtraEntryTwo->value,
-        ];
-
-        $objectListEntry = [
-            $objectList,
-            $objectListData,
-            $objectListExtraData,
-            $objectListExtraEntryOne,
-            $objectListExtraEntryTwo,
-        ];
-
-        $intAssociativeData = [$faker->word() => $faker->randomDigit(), $faker->word() => $faker->randomDigit(), $faker->word() => $faker->randomDigit()];
-        $intAssociative = new ArrayCollection($intAssociativeData);
-        $intAssociativeExtraEntryOne = new KeyValuePair($faker->word(), $faker->randomDigit());
-        $intAssociativeExtraEntryTwo = new KeyValuePair($faker->word(), $faker->randomDigit());
-        $intAssociativeExtraData = [
-            $intAssociativeExtraEntryOne->key => $intAssociativeExtraEntryOne->value,
-            $intAssociativeExtraEntryTwo->key => $intAssociativeExtraEntryTwo->value,
-        ];
-
-        $intAssociativeEntry = [
-            $intAssociative,
-            $intAssociativeData,
-            $intAssociativeExtraData,
-            $intAssociativeExtraEntryOne,
-            $intAssociativeExtraEntryTwo,
-        ];
-
-        $stringAssociativeData = [$faker->word() => $faker->word(), $faker->word() => $faker->word(), $faker->word() => $faker->word()];
-        $stringAssociative = new ArrayCollection($stringAssociativeData);
-        $stringAssociativeExtraEntryOne = new KeyValuePair($faker->word(), $faker->word());
-        $stringAssociativeExtraEntryTwo = new KeyValuePair($faker->word(), $faker->word());
-        $stringAssociativeExtraData = [
-            $stringAssociativeExtraEntryOne->key => $stringAssociativeExtraEntryOne->value,
-            $stringAssociativeExtraEntryTwo->key => $stringAssociativeExtraEntryTwo->value,
-        ];
-
-        $stringAssociativeEntry = [
-            $stringAssociative,
-            $stringAssociativeData,
-            $stringAssociativeExtraData,
-            $stringAssociativeExtraEntryOne,
-            $stringAssociativeExtraEntryTwo,
-        ];
-
-        $objectAssociativeData = [
-            $faker->word() => (object) ['value' => $faker->randomDigit()],
-            $faker->word() => (object) ['value' => $faker->randomDigit()],
-            $faker->word() => (object) ['value' => $faker->randomDigit()],
-        ];
-        $objectAssociative = new ArrayCollection($objectAssociativeData);
-        $objectAssociativeExtraEntryOne = new KeyValuePair($faker->word(), (object) ['value' => $faker->randomDigit()]);
-        $objectAssociativeExtraEntryTwo = new KeyValuePair($faker->word(), (object) ['value' => $faker->randomDigit()]);
-        $objectAssociativeExtraData = [
-            $objectAssociativeExtraEntryOne->key => $objectAssociativeExtraEntryOne->value,
-            $objectAssociativeExtraEntryTwo->key => $objectAssociativeExtraEntryTwo->value,
-        ];
-
-        $objectAssociativeEntry = [
-            $objectAssociative,
-            $objectAssociativeData,
-            $objectAssociativeExtraData,
-            $objectAssociativeExtraEntryOne,
-            $objectAssociativeExtraEntryTwo,
-        ];
-
-        return [
-            $intListEntry,
-            $stringListEntry,
-            $objectListEntry,
-            $intAssociativeEntry,
-            $stringAssociativeEntry,
-            $objectAssociativeEntry,
-        ];
     }
 
     // endregion

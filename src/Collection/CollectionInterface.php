@@ -30,6 +30,7 @@ interface CollectionInterface extends \ArrayAccess, \Countable, \IteratorAggrega
 
     /**
      * @return array<array-key, TValue>
+     * @psalm-return (TKey is array-key ? array<TKey, TValue> : array<array-key, TValue>)
      */
     public function toArray(): array;
 
@@ -77,12 +78,12 @@ interface CollectionInterface extends \ArrayAccess, \Countable, \IteratorAggrega
     public function findByValue(mixed $search): KeyValuePair|null;
 
     /**
-     * @param pure-callable(TValue, TKey):bool $callback
+     * @param callable(TValue, TKey):bool $callback
+     * @psalm-param pure-callable(TValue, TKey):bool $callback
      *
      * @return KeyValuePair<TKey, TValue>|null
      *
      * @noinspection PhpUndefinedClassInspection
-     * @noinspection PhpDocSignatureInspection
      */
     public function findByCallback(callable $callback): KeyValuePair|null;
 
@@ -98,43 +99,46 @@ interface CollectionInterface extends \ArrayAccess, \Countable, \IteratorAggrega
 
     /**
      * @param array<TKey, TValue>|CollectionInterface<TKey, TValue> $collection
+     * @psalm-param (TKey is array-key ? array<array-key, TValue>|CollectionInterface<TKey, TValue> : CollectionInterface<TKey, TValue>) $collection
      *
      * @return self<TKey, TValue>
      */
     public function merge(array|self $collection): self;
 
     /**
-     * @template TMapKey as array-key
+     * @template TMapKey
      *
-     * @param pure-callable(TValue, TKey):TMapKey $callback
+     * @param callable(TValue, TKey):TMapKey $callback
+     * @psalm-param pure-callable(TValue, TKey):TMapKey $callback
      *
-     * @return self<TMapKey, TValue>
+     * @return CollectionInterface<TMapKey, TValue>
      *
      * @noinspection PhpUndefinedClassInspection
-     * @noinspection PhpDocSignatureInspection
      */
     public function mapKeys(callable $callback): self;
 
     /**
      * @template TMapValue
      *
-     * @param pure-callable(TValue, TKey):TMapValue $callback
+     * @param callable(TValue, TKey):TMapValue $callback
+     * @psalm-param pure-callable(TValue, TKey):TMapValue $callback
      *
-     * @return self<TKey, TMapValue>
+     * @return CollectionInterface<TKey, TMapValue>
      *
      * @noinspection PhpUndefinedClassInspection
-     * @noinspection PhpDocSignatureInspection
      */
     public function mapValues(callable $callback): self;
 
     /**
-     * @template TMapKey as array-key
+     * @template TMapKey
      * @template TMapValue
      *
-     * @param pure-callable(TValue, TKey):KeyValuePair<TMapKey, TMapValue> $callback
+     * @param callable(TValue, TKey):KeyValuePair<TMapKey, TMapValue> $callback
+     * @psalm-param pure-callable(TValue, TKey):KeyValuePair<TMapKey, TMapValue> $callback
+     *
+     * @return CollectionInterface<TMapKey, TMapValue>
      *
      * @noinspection PhpUndefinedClassInspection
-     * @noinspection PhpDocSignatureInspection
      */
     public function mapKeyValuePairs(callable $callback): self;
 

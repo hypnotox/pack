@@ -10,8 +10,8 @@ use HypnoTox\Pack\Exception\ImmutableException;
 use Traversable;
 
 /**
- * @template TKey as array-key
- * @template TValue as mixed
+ * @template TKey of array-key
+ * @template TValue of mixed
  *
  * @psalm-immutable
  * @template-implements CollectionInterface<TKey, TValue>
@@ -41,6 +41,11 @@ final class ArrayCollection implements CollectionInterface
         return array_values($this->data);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return array<TKey, TValue>
+     */
     public function toArray(): array
     {
         return $this->data;
@@ -53,8 +58,6 @@ final class ArrayCollection implements CollectionInterface
      * {@inheritDoc}
      *
      * @param TKey $key
-     *
-     * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function exists(mixed $key): bool
     {
@@ -65,8 +68,6 @@ final class ArrayCollection implements CollectionInterface
      * {@inheritDoc}
      *
      * @param TKey $key
-     *
-     * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function get(mixed $key): mixed
     {
@@ -78,8 +79,6 @@ final class ArrayCollection implements CollectionInterface
      *
      * @param TKey   $key
      * @param TValue $value
-     *
-     * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function set(mixed $key, mixed $value): self
     {
@@ -93,8 +92,6 @@ final class ArrayCollection implements CollectionInterface
      * {@inheritDoc}
      *
      * @param TKey $key
-     *
-     * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function unset(mixed $key): self
     {
@@ -181,6 +178,18 @@ final class ArrayCollection implements CollectionInterface
         );
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @template TMapKey of array-key
+     *
+     * @param callable(TValue, TKey):TMapKey $callback
+     * @psalm-param pure-callable(TValue, TKey):TMapKey $callback
+     *
+     * @return CollectionInterface<TMapKey, TValue>
+     *
+     * @noinspection PhpUndefinedClassInspection
+     */
     public function mapKeys(callable $callback): CollectionInterface
     {
         /** @var array<TKey, TValue> $values */
@@ -207,6 +216,19 @@ final class ArrayCollection implements CollectionInterface
         return new self($values);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @template TMapKey of array-key
+     * @template TMapValue
+     *
+     * @param callable(TValue, TKey):KeyValuePair<TMapKey, TMapValue> $callback
+     * @psalm-param pure-callable(TValue, TKey):KeyValuePair<TMapKey, TMapValue> $callback
+     *
+     * @return CollectionInterface<TMapKey, TMapValue>
+     *
+     * @noinspection PhpUndefinedClassInspection
+     */
     public function mapKeyValuePairs(callable $callback): CollectionInterface
     {
         /** @var array<TKey, TValue> $values */

@@ -59,7 +59,7 @@ class ArrayCollectionBench
             $_first = $collection->first();
             $_last = $collection->last();
             $_findByValue = $collection->findByValue($last->value);
-            $_findByCallback = $collection->findByCallback(fn (mixed $value) => $value === $last->value);
+            $_findByCallback = $collection->findByCallback(static fn (mixed $value) => $value === $last->value);
         }
     }
 }

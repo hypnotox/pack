@@ -14,7 +14,7 @@ use HypnoTox\Pack\DTO\KeyValuePair;
  * @extends \IteratorAggregate<TKey, TValue>
  * @extends \ArrayAccess<TKey, TValue>
  */
-interface CollectionInterface extends \IteratorAggregate, \ArrayAccess, \Countable
+interface CollectionInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 {
     // region Getters
 

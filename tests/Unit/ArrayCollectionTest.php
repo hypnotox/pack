@@ -8,6 +8,9 @@ use HypnoTox\Pack\Collection\ArrayCollection;
 use HypnoTox\Pack\DTO\KeyValuePair;
 use HypnoTox\Pack\Exception\ImmutableException;
 
+/**
+ * @internal
+ */
 class ArrayCollectionTest extends BaseTest
 {
     // region Getters
@@ -135,8 +138,8 @@ class ArrayCollectionTest extends BaseTest
         $lastValue = $data[$lastKey];
         $nullValue = \is_object($lastValue) ? new \stdClass() : ((string) $lastValue).'_UNDEFINED';
 
-        $this->assertSame($lastValue, $collection->findByCallback(fn ($value): bool => $value === $lastValue)?->value);
-        $this->assertNull($collection->findByCallback(fn ($value): bool => $value === $nullValue));
+        $this->assertSame($lastValue, $collection->findByCallback(static fn ($value): bool => $value === $lastValue)?->value);
+        $this->assertNull($collection->findByCallback(static fn ($value): bool => $value === $nullValue));
     }
 
     /**
@@ -150,17 +153,17 @@ class ArrayCollectionTest extends BaseTest
         array $data,
         array $extraData,
     ): void {
-        $this->assertEquals(array_merge($data, $extraData), $collection->merge($extraData)->toArray());
-        $this->assertEquals(\array_slice($data, 1, null, true), $collection->slice(1, null, true)->toArray());
-        $this->assertEquals(\array_slice($data, 0, 2), $collection->slice(0, 2)->toArray());
+        $this->assertSame(array_merge($data, $extraData), $collection->merge($extraData)->toArray());
+        $this->assertSame(\array_slice($data, 1, null, true), $collection->slice(1, null, true)->toArray());
+        $this->assertSame(\array_slice($data, 0, 2), $collection->slice(0, 2)->toArray());
 
         $spliceOne = $data;
         array_splice($spliceOne, 0, 1);
-        $this->assertEquals($spliceOne, $collection->splice(0, 1)->toArray());
+        $this->assertSame($spliceOne, $collection->splice(0, 1)->toArray());
 
         $spliceTwo = $data;
         array_splice($spliceTwo, 2, 1, $extraData);
-        $this->assertEquals($spliceTwo, $collection->splice(2, 1, $extraData)->toArray());
+        $this->assertSame($spliceTwo, $collection->splice(2, 1, $extraData)->toArray());
     }
 
     /**
@@ -189,7 +192,7 @@ class ArrayCollectionTest extends BaseTest
             $mappedArray[$key] = $v;
         }
 
-        $this->assertEquals($mappedArray, $collection->mapKeys($callback)->toArray());
+        $this->assertSame($mappedArray, $collection->mapKeys($callback)->toArray());
     }
 
     /**
@@ -218,7 +221,7 @@ class ArrayCollectionTest extends BaseTest
             $mappedArray[$k] = $value;
         }
 
-        $this->assertEquals($mappedArray, $collection->mapValues($callback)->toArray());
+        $this->assertSame($mappedArray, $collection->mapValues($callback)->toArray());
     }
 
     /**
@@ -248,7 +251,7 @@ class ArrayCollectionTest extends BaseTest
             $mappedArray[$result->key] = $result->value;
         }
 
-        $this->assertEquals($mappedArray, $collection->mapKeyValuePairs($callback)->toArray());
+        $this->assertSame($mappedArray, $collection->mapKeyValuePairs($callback)->toArray());
     }
 
     // endregion

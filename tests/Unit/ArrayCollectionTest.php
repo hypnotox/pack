@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\Unit;
 
 use HypnoTox\Pack\Collection\ArrayCollection;
 use HypnoTox\Pack\DTO\KeyValuePair;
@@ -29,39 +29,112 @@ class ArrayCollectionTest extends BaseTest
 
     /**
      * @param non-empty-array<array-key, mixed> $data
+     *
+     * @dataProvider collectionProvider
+     */
+    public function testCanUseBaseMethodExists(
+        ArrayCollection $collection,
+        array $data,
+    ): void {
+        $lastKey = array_key_last($data);
+
+        $this->assertTrue($collection->exists($lastKey));
+    }
+
+    /**
+     * @param non-empty-array<array-key, mixed> $data
+     *
+     * @dataProvider collectionProvider
+     */
+    public function testCanUseBaseMethodFirstAndLast(
+        ArrayCollection $collection,
+        array $data,
+    ): void {
+        $lastKey = array_key_last($data);
+
+        /** @var mixed $lastValue */
+        $lastValue = $data[$lastKey];
+
+        $this->assertSame(reset($data), $collection->first());
+        $this->assertSame($lastValue, $collection->last());
+    }
+
+    /**
+     * @param non-empty-array<array-key, mixed> $data
      * @param non-empty-array<array-key, mixed> $extraData
      * @param KeyValuePair<array-key, mixed>    $extraDataEntryOne
      * @param KeyValuePair<array-key, mixed>    $extraDataEntryTwo
      *
      * @dataProvider collectionProvider
      */
-    public function testCanUseBaseMethods(
+    public function testCanUseBaseMethodSetAndGet(
         ArrayCollection $collection,
         array $data,
         array $extraData,
         KeyValuePair $extraDataEntryOne,
-        KeyValuePair $extraDataEntryTwo
+        KeyValuePair $extraDataEntryTwo,
+    ): void {
+        $lastKey = array_key_last($data);
+        $unsetData = $data;
+        unset($unsetData[$lastKey]);
+
+        $this->assertSame($extraDataEntryOne->value, $collection->set($extraDataEntryOne->key, $extraDataEntryOne->value)->get($extraDataEntryOne->key));
+        $this->assertSame($extraDataEntryTwo->value, $collection->set($extraDataEntryTwo->key, $extraDataEntryTwo->value)->get($extraDataEntryTwo->key));
+    }
+
+    /**
+     * @param non-empty-array<array-key, mixed> $data
+     *
+     * @dataProvider collectionProvider
+     */
+    public function testCanUseBaseMethodUnset(
+        ArrayCollection $collection,
+        array $data,
     ): void {
         $count = \count($data);
+        $lastKey = array_key_last($data);
+
+        $unsetData = $data;
+        unset($unsetData[$lastKey]);
+
+        $this->assertSame($count - 1, $collection->unset($lastKey)->count());
+        $this->assertSame($unsetData, $collection->unset($lastKey)->toArray());
+    }
+
+    /**
+     * @param non-empty-array<array-key, mixed> $data
+     *
+     * @dataProvider collectionProvider
+     */
+    public function testCanUseBaseMethodFindByValue(
+        ArrayCollection $collection,
+        array $data,
+    ): void {
         $lastKey = array_key_last($data);
 
         /** @var mixed $lastValue */
         $lastValue = $data[$lastKey];
         $nullValue = \is_object($lastValue) ? new \stdClass() : ((string) $lastValue).'_UNDEFINED';
 
-        $unsetData = $data;
-        unset($unsetData[$lastKey]);
-
-        $this->assertTrue($collection->exists($lastKey));
-        $this->assertSame(reset($data), $collection->first());
-        $this->assertSame($lastValue, $collection->last());
-        $this->assertSame($extraDataEntryOne->value, $collection->set($extraDataEntryOne->key, $extraDataEntryOne->value)->get($extraDataEntryOne->key));
-        $this->assertSame($extraDataEntryTwo->value, $collection->set($extraDataEntryTwo->key, $extraDataEntryTwo->value)->get($extraDataEntryTwo->key));
-        $this->assertSame($count, $collection->count());
-        $this->assertSame($count - 1, $collection->unset($lastKey)->count());
-        $this->assertSame($unsetData, $collection->unset($lastKey)->toArray());
         $this->assertSame($lastValue, $collection->findByValue($lastValue)?->value);
         $this->assertNull($collection->findByValue($nullValue));
+    }
+
+    /**
+     * @param non-empty-array<array-key, mixed> $data
+     *
+     * @dataProvider collectionProvider
+     */
+    public function testCanUseBaseMethodFindByCallback(
+        ArrayCollection $collection,
+        array $data,
+    ): void {
+        $lastKey = array_key_last($data);
+
+        /** @var mixed $lastValue */
+        $lastValue = $data[$lastKey];
+        $nullValue = \is_object($lastValue) ? new \stdClass() : ((string) $lastValue).'_UNDEFINED';
+
         $this->assertSame($lastValue, $collection->findByCallback(fn ($value): bool => $value === $lastValue)?->value);
         $this->assertNull($collection->findByCallback(fn ($value): bool => $value === $nullValue));
     }
@@ -75,7 +148,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider collectionProvider
      */
-    public function testCanUseSliceAndSpliceMethods(
+    public function testCanUseModificationMethodSliceAndSplice(
         ArrayCollection $collection,
         array $data,
         array $extraData,
@@ -98,7 +171,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider collectionProvider
      */
-    public function testCanUseMapKeysMethod(
+    public function testCanUseModificationMethodMapKeys(
         ArrayCollection $collection,
         array $data,
     ): void {
@@ -127,7 +200,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider collectionProvider
      */
-    public function testCanUseMapValuesMethod(
+    public function testCanUseModificationMethodMapValues(
         ArrayCollection $collection,
         array $data,
     ): void {
@@ -156,7 +229,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider collectionProvider
      */
-    public function testCanUseMapKeyValuePairsMethod(
+    public function testCanUseModificationMethodMapKeyValuePairs(
         ArrayCollection $collection,
         array $data,
     ): void {

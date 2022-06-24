@@ -60,6 +60,8 @@ class ArrayCollectionTest extends BaseTest
 
         $this->assertSame(reset($data), $collection->first()?->value);
         $this->assertSame($lastValue, $collection->last()?->value);
+        $this->assertNull($collection->splice(0)->first());
+        $this->assertNull($collection->splice(0)->last());
     }
 
     /**

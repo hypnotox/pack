@@ -32,7 +32,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
-    public function testCanUseBaseMethodExists(
+    public function testCanUseExists(
         ArrayCollection $collection,
         array $data,
     ): void {
@@ -46,7 +46,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
-    public function testCanUseBaseMethodFirstAndLast(
+    public function testCanUseFirstAndLast(
         ArrayCollection $collection,
         array $data,
     ): void {
@@ -67,7 +67,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
-    public function testCanUseBaseMethodSetAndGet(
+    public function testCanUseSetAndGet(
         ArrayCollection $collection,
         array $data,
         array $extraData,
@@ -87,7 +87,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
-    public function testCanUseBaseMethodUnset(
+    public function testCanUseUnset(
         ArrayCollection $collection,
         array $data,
     ): void {
@@ -106,7 +106,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
-    public function testCanUseBaseMethodFindByValue(
+    public function testCanUseFindByValue(
         ArrayCollection $collection,
         array $data,
     ): void {
@@ -125,7 +125,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
-    public function testCanUseBaseMethodFindByCallback(
+    public function testCanUseFindByCallback(
         ArrayCollection $collection,
         array $data,
     ): void {
@@ -139,16 +139,13 @@ class ArrayCollectionTest extends BaseTest
         $this->assertNull($collection->findByCallback(fn ($value): bool => $value === $nullValue));
     }
 
-    // endregion
-    // region Collection "modification" methods
-
     /**
      * @param non-empty-array<array-key, mixed> $data
      * @param non-empty-array<array-key, mixed> $extraData
      *
      * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
-    public function testCanUseModificationMethodSliceAndSplice(
+    public function testCanUseSliceAndSplice(
         ArrayCollection $collection,
         array $data,
         array $extraData,
@@ -171,7 +168,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
-    public function testCanUseModificationMethodMapKeys(
+    public function testCanUseMapKeys(
         ArrayCollection $collection,
         array $data,
     ): void {
@@ -200,7 +197,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
-    public function testCanUseModificationMethodMapValues(
+    public function testCanUseMapValues(
         ArrayCollection $collection,
         array $data,
     ): void {
@@ -229,7 +226,7 @@ class ArrayCollectionTest extends BaseTest
      *
      * @dataProvider \Tests\Provider\ArrayCollectionProvider::provide()
      */
-    public function testCanUseModificationMethodMapKeyValuePairs(
+    public function testCanUseMapKeyValuePairs(
         ArrayCollection $collection,
         array $data,
     ): void {

@@ -40,7 +40,8 @@
 		"test": [
 			"@fix",
 			"@lint",
-			"@unit"
+			"@unit",
+			"@bench"
 		],
 		"unit": "vendor/bin/phpunit",
 		"unit-coverage-clover": "@unit --coverage-clover coverage.xml",

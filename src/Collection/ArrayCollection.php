@@ -108,7 +108,7 @@ final class ArrayCollection implements CollectionInterface
     {
         $key = array_key_first($this->data);
 
-        if ($key === null) {
+        if (null === $key) {
             return null;
         }
 
@@ -119,7 +119,7 @@ final class ArrayCollection implements CollectionInterface
     {
         $key = array_key_last($this->data);
 
-        if ($key === null) {
+        if (null === $key) {
             return null;
         }
 
@@ -147,9 +147,6 @@ final class ArrayCollection implements CollectionInterface
 
         return null;
     }
-
-    // endregion
-    // region Collection "modification" methods
 
     public function splice(int $offset, ?int $length = null, array $replacement = null): self
     {

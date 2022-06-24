@@ -62,12 +62,12 @@ interface CollectionInterface extends \IteratorAggregate, \ArrayAccess, \Countab
     /**
      * @return KeyValuePair<TKey, TValue>|null
      */
-    public function first(): mixed;
+    public function first(): KeyValuePair|null;
 
     /**
      * @return KeyValuePair<TKey, TValue>|null
      */
-    public function last(): mixed;
+    public function last(): KeyValuePair|null;
 
     /**
      * @param TValue $search
@@ -85,9 +85,6 @@ interface CollectionInterface extends \IteratorAggregate, \ArrayAccess, \Countab
      * @noinspection PhpDocSignatureInspection
      */
     public function findByCallback(callable $callback): KeyValuePair|null;
-
-    // endregion
-    // region Collection "modification" methods
 
     public function splice(int $offset, ?int $length = null, array $replacement = null): self;
 

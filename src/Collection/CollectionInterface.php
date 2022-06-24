@@ -86,10 +86,21 @@ interface CollectionInterface extends \ArrayAccess, \Countable, \IteratorAggrega
      */
     public function findByCallback(callable $callback): KeyValuePair|null;
 
+    /**
+     * @return self<TKey, TValue>
+     */
     public function splice(int $offset, ?int $length = null, array $replacement = null): self;
 
+    /**
+     * @return self<TKey, TValue>
+     */
     public function slice(int $offset, ?int $length, bool $preserveKeys = false): self;
 
+    /**
+     * @param array<TKey, TValue>|CollectionInterface<TKey, TValue> $collection
+     *
+     * @return self<TKey, TValue>
+     */
     public function merge(array|self $collection): self;
 
     /**
